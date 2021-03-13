@@ -118,6 +118,7 @@ public class AttachService {
             attachBean.setIndexNo(evt.getIndexNo());
             attachBean.setAttachByteSize(fileByteSize);
             attachBean.setAttachViewUrl(viewPath);
+            attachBean.setCreateUser((String) request.getAttribute("Account"));
             int info = attachMapper.uploadAttach(attachBean);
             if (info == 0)
                 return new ServiceRespModel(-1, "附件信息上传数据库失败", null);

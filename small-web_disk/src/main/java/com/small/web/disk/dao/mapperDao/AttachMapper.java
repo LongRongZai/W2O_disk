@@ -17,8 +17,8 @@ public interface AttachMapper {
     /**
      * 上传附件
      */
-    @Insert("insert into t_attach(userNO,createTime,status,attachNo,indexNo,attachName,attachSize,attachType,attachUrl,attachByteSize,auditStatus,attachViewUrl)values" +
-            "(#{item.userNo},now(),'E',#{item.attachNo},#{item.indexNo},#{item.attachName},#{item.attachSize},#{item.attachType},#{item.attachUrl},#{item.attachByteSize},'C',#{item.attachViewUrl})")
+    @Insert("insert into t_attach(userNO,createTime,status,attachNo,indexNo,attachName,attachSize,attachType,attachUrl,attachByteSize,auditStatus,attachViewUrl,createUser)values" +
+            "(#{item.userNo},now(),'E',#{item.attachNo},#{item.indexNo},#{item.attachName},#{item.attachSize},#{item.attachType},#{item.attachUrl},#{item.attachByteSize},'C',#{item.attachViewUrl},#{item.createUser})")
     Integer uploadAttach(@Param("item") AttachBean attachBean);
 
     /**
