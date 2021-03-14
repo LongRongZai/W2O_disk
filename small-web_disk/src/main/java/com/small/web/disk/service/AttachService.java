@@ -1,6 +1,5 @@
 package com.small.web.disk.service;
 
-import cn.hutool.core.io.FileTypeUtil;
 import com.small.web.disk.bean.AdminBean;
 import com.small.web.disk.bean.AttachBean;
 import com.small.web.disk.bean.IndexBean;
@@ -65,18 +64,11 @@ public class AttachService {
         InputStream inputStream = null;
         OutputStream outputStream = null;
         try {
-            //获取附件的输入流
-            inputStream = multipartFile.getInputStream();
             //获取上传时的附件名
             String fileName = multipartFile.getOriginalFilename();
             //获取附件类型
             String name = StringUtils.replace(fileName, " ", "");
             String fileType = name.substring(name.lastIndexOf(".") + 1);
-            //判断附件类型是否有效
-            String realType = FileTypeUtil.getType(inputStream);
-            if (!realType.equals(fileType) || realType == null) {
-                return new ServiceRespModel(-1, "上传附件无效", null);
-            }
             //将附件名设置为时间戳
             String timeStamp = System.currentTimeMillis() + "." + fileType;
             //限制上传的附件类型
@@ -84,6 +76,8 @@ public class AttachService {
                 return new ServiceRespModel(-1, "此附件为限制上传附件类型", null);
             //指定上传的位置
             String path = diskProperties.getAttachSavePath();
+            //获取附件的输入流
+            inputStream = multipartFile.getInputStream();
             //获取附件大小
             long fileByteSize = multipartFile.getSize();
             String fileSize = UploadFileTool.getPrintSize(inputStream.available());
